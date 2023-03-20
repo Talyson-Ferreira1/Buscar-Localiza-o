@@ -6,7 +6,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 L.marker([ -3.71839,   -38.5434]).addTo(map)
-    .bindPopup('voce está aqui')
+    .bindPopup('Fortaleza-ce')
     .openPopup();
 
 const inputRua = document.querySelector('#street');
