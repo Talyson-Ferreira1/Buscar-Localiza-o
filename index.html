@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="shortcut icon" href="./assets/img/Favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+     crossorigin=""></script>
+    <title>Localização</title>
+</head>
+<body>
+    <main>
+
+        
+        <div class="contentCards">
+            <h2 id="cabecalho">Outras informações</h2>
+            <div class="container inputCep"  >
+                <input class="inputSaida " type="text" name="cep" id="cep"  readonly>
+                <span class="inputSaidaText">Cep</span>
+            </div>
+            <div class="container inputPais" >
+                <input class="inputSaida" type="text" name="pais" id="pais" readonly>
+                <span class="inputSaidaText">Pais</span>
+            </div>
+            <div class="container inputEstado" >
+                <input class="inputSaida" type="text" name="estado" id="estado" readonly>
+                <span class="inputSaidaText">Estado</span>
+            </div>
+            <span class="texto" id="warningErrorUndefined">Tente novamente!<br> Verifique as informações ao inseri-las, respeitando pontuações e espaçamentos. </span>
+        </div>
+        <div id="info">
+            <h2 id="cabecalho"> Insira as informações</h2>
+            <div class="container inputRua">
+                <input class="inputEntrada " type="text" name="rua" id="street" required="required">
+                <span class="inputEntradaText"> Rua</span>
+            </div>
+            <div class="container inputBairro">
+                <input class="inputEntrada" type="text" name="bairro" id="bairro" required="required">
+                <span class="inputEntradaText"> Bairro</span>
+            </div>
+            <div class="container inputCidade">
+                <input class="inputEntrada" type="text" name="cidade" id="city" required="required">
+                <span class="inputEntradaText"> Cidade</span>
+            </div>
+            
+            <div class="button"> Buscar</div>
+        </div>
+        <div id="map"></div>
+
+    </main>
+    <script src="./assets/index.js"></script>
+</body>
+</html>

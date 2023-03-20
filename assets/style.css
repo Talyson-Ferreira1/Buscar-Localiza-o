@@ -1,0 +1,309 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+:root{
+
+    --fundo-color: #2f2e2e;
+    --line-color: #07a1fa;
+}
+body{
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%) ;
+    background-repeat: no-repeat;
+    overflow-x: hidden;
+    padding: 2rem;
+}
+body::-webkit-scrollbar {
+    width: 5px;
+}
+
+body::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: var(--fundo-color);
+    border-radius: 5px;
+}
+main
+{
+    border-radius: 10px;
+    width: 80%;
+    height: 90%;
+    display: grid;
+    grid-template-columns: 30% 70%;
+    grid-template-rows:50% 50% ;
+    flex-direction: column;
+    background: var(--fundo-color);
+}
+.contentCards
+{
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width:250px;
+    height: 400px;
+    min-width: 250px;
+    min-height: 400px;
+    opacity: 0.3;
+    transition: all .3s ease-in-out;
+
+}
+#cabecalho
+{
+    font-size: 1.5em;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    color: white;
+}
+.inputSaida  
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    background: transparent;
+    z-index: 2;
+    padding: 1rem;
+    color: white;
+    cursor: pointer;
+
+}
+.inputCep::before,.inputPais::before,.inputEstado::before
+{
+    content: "\f0c5 ";
+    font-family:fontAwesome ;
+    font-size: .8em;
+    width: 20px;
+    height: 20px;
+    color: #b7b7b7a4;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 5%;
+}
+.inputSaidaText
+{
+    position: absolute;
+    top: 0;
+    left: 5px;
+    transform: translateY(-50%);
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size:.7em;
+    color: white;
+    padding:0 .3rem;
+    margin: 0 1rem ;
+    z-index: 1;
+    transition: all .1s ease-in-out;
+    background:var(--fundo-color) ;
+    border-left: 1px solid var(--line-color) ;
+    border-right: 1px solid var(--line-color);
+    color: var(--line-color);
+
+}
+.texto
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: rgb(189, 13, 13);
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    font-size: .8em;
+    padding: 0 1rem;
+    opacity: 0;
+    transition: all .2s ease-in-out;
+}
+.texto.warning
+{
+    opacity:1;
+}
+
+#info
+{
+    grid-column: 2;
+    grid-row: 1;
+    width:100%;
+    height: 50%;
+    min-width: 250px;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 2rem;
+}
+.container
+{
+    margin: 1rem 0;
+    min-width: 15rem;
+    width: 80%;
+    height: 10%;
+    min-height: 3rem;
+    border-radius: 20px;
+    background: transparent;
+    position: relative;
+    border: 1px solid var(--line-color);
+    z-index: 0;
+}
+.inputRua.warning, .inputCidade.warning,.inputBairro.warning
+{
+    border: 1px solid rgb(192, 86, 86);
+    animation: shake .5s;
+}
+.container.active
+{
+    animation: scale .5s ease-in-out;
+}
+.inputEntrada
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    background: transparent;
+    z-index: 2;
+    padding: 1rem;
+    color: white;
+    
+
+}
+.inputEntradaText
+{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    font-size:.7em;
+    color: white;
+    padding:0 .3rem;
+    margin: 0 1rem ;
+    z-index: 1;
+    transition: all .3s ease-in-out;
+    opacity: .5;
+    
+
+}
+.inputEntrada:is(:valid, :focus) ~ .inputEntradaText  
+{
+    background:var(--fundo-color) ;
+    border-left: 1px solid var(--line-color) ;
+    border-right: 1px solid var(--line-color);
+    color: var(--line-color);
+    top: 0;
+    opacity: 1;
+
+}
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    height: 10%;
+    border-radius: 20px;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 800;
+    border: none;
+    position: relative;
+    overflow: hidden;
+    color: white;
+    z-index: 1;
+    background: var(--line-color);
+    gap: 1rem;
+    cursor: pointer;
+    
+}
+.button:hover
+{
+    transform: scale(.98);
+    filter: saturate(1.8);
+} 
+.warningText
+{
+    font-size: .8em;
+    color: red;
+    position: absolute;
+    bottom: -15px;
+    padding: 0 1rem;
+}
+#map
+{
+    grid-column: 1 / span 2;
+    grid-row: 2;
+    width:100%;
+    height: 50%;
+    min-height: 400px;
+}
+@keyframes shake
+{
+    0%{ transform: translateX(0px);}
+    20%{ transform: translateX(10px);}
+    40%{ transform: translateX(-10px);}
+    60%{ transform: translateX(10px);}
+    80%{ transform: translateX(-10px);}
+    100%{ transform: translateX(0px);}
+
+}
+@keyframes scale
+{
+    0%{transform: scale(1);}
+    
+    50%{transform: scale(0.95);}
+
+    100%{transform: scale(1);}
+    
+}
+
+
+@media(max-width:1000px){
+    main{
+
+        grid-template-columns: 45% 55%;
+    }
+}
+@media(max-width:700px){
+    main{
+        width: 99%;
+        grid-template-columns:100%;
+        grid-template-rows:repeat(3, 1fr) ;
+    }
+    .contentCards
+    {
+        grid-column: 1;
+        grid-row: 3;
+        width: 100%;
+
+    }
+    #info
+    {
+        grid-column: 1;
+        grid-row: 1;
+
+    }
+    #map
+    {
+        grid-column: 1;
+        grid-row: 2;
+
+    }
+}
