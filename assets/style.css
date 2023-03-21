@@ -213,13 +213,38 @@ main
     opacity: 1;
 
 }
-.button {
+.containerButtons
+{
+    width: 80%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.buttonGetUserLocation
+{
+    width: 30%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 80%;
-    height: 10%;
-    border-radius: 20px;
+    border: none;
+    color: white;
+    background: var(--line-color);
+    border-radius: 5px 20px 20px 5px ;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 800;
+    cursor: pointer;
+    word-wrap:'Minha-localização';
+}
+.button 
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 68%;
+    height: 100%;
+    border-radius: 20px 5px 5px 20px ;
     font-size: 15px;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 800;
@@ -233,7 +258,7 @@ main
     cursor: pointer;
     
 }
-.button:hover
+.button:hover,.buttonGetUserLocation:hover
 {
     transform: scale(.98);
     filter: saturate(1.8);
@@ -280,6 +305,10 @@ main
 
         grid-template-columns: 45% 55%;
     }
+    .buttonGetUserLocation
+    {
+        
+    }
 }
 @media(max-width:700px){
     main{
@@ -306,4 +335,5 @@ main
         grid-row: 2;
 
     }
+
 }

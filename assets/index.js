@@ -9,16 +9,24 @@ L.marker([ -3.71839,   -38.5434]).addTo(map)
     .bindPopup('Fortaleza-ce')
     .openPopup();
 
+map.on("click",function(e){
+    var marker = new L.marker([e.latlng.lat, e.latlng.lng]).addTo(map);
+})
+const btnGetUserLocation = document.querySelector(".buttonGetUserLocation")
+const inputsInformation = document.querySelectorAll('.inputSaida');
 const inputRua = document.querySelector('#street');
 const inputCity = document.querySelector('#city');
 const inputBairro = document.querySelector('#bairro');
 const sendButton = document.querySelector('.button');
 const input = document.querySelectorAll('input');
 let valorRua= "",valorBairro= "",valorCidade = "";
+let latitude, longitude, requisicao, cep, estado, pais, rua, bairro, cidade;
 
 
 sendButton.addEventListener('click', validateInput);
+btnGetUserLocation.addEventListener("click",getLocation );
 input.forEach(e => { e.addEventListener('focus', removeWarning) });
+
 
 
 function validateInput(){
@@ -42,8 +50,8 @@ function validateInput(){
                 valorCidade = inputCity.value
             }else return
    }
-
-    validateValues()? makeRequisition():false;
+    requisicao = "inputValues"
+    validateValues()? makeRequisition(requisicao):false;
     validateValues()? showOurInformation():false;
 
    
@@ -57,26 +65,55 @@ function validateValues(){
         return true
     } return false
 }
-async function makeRequisition(){
-    const linkNominatim = ` https://nominatim.openstreetmap.org/search?street=${valorRua}&city=${valorCidade}&county=${valorBairro}&addressdetails=1&format=json`
-    const data = await fetch(linkNominatim).then(response =>response.json()).catch(error => erroInRequisition)
-    let response = await data;  
 
-    let latitude = response[0].lat;
-    let longitude = response[0].lon;
+async function makeRequisition(requisicao){
+    let link = ""
+    if(requisicao == "inputValues"){
+        link = ` https://nominatim.openstreetmap.org/search?street=${valorRua}&city=${valorCidade}&county=${valorBairro}&addressdetails=1&format=json`
+    }else if(requisicao == "userLocation"){
+        link = `https://nominatim.openstreetmap.org/reverse?addressdetails=1&format=json&lat=${latitude}&lon=${longitude}`          
+    }
+
+    const data = await fetch(link)
+                        .then(response =>response.json())
+                        .catch((error) => console.log("deu errado"))
+    const resposta = await data;
+    
+    if(requisicao == "inputValues"){
+        dataProcessingInputValue(resposta)
+    }else if(requisicao == "userLocation"){
+        dataProcessingUserLocation(resposta)
+    }
+
 
     
-    let cep = response[0].address.postcode;
-    let estado = response[0].address.state;
-    let pais = response[0].address.country;
+}
+function dataProcessingUserLocation(response){
+
+    console.log(response)
+    latitude = response.lat;
+    longitude = response.lon;
+    cep = response.address.postcode;
+    estado = response.address.state;
+    pais = response.address.country;
+    rua = response.address.road;
+    bairro = response.address.suburb;
+    cidade = response.address.city;  
+
+    showOurInformation(cep, estado, pais);
+    updateMap(latitude, longitude)
+    changeInputInformation(rua,bairro,cidade)
+}
+function dataProcessingInputValue(response){
+    
+    latitude = response[0].lat;
+    longitude = response[0].lon;
+    cep = response[0].address.postcode;
+    estado = response[0].address.state;
+    pais = response[0].address.country;
 
     showOurInformation(cep,estado,pais);
     updateMap(latitude,longitude)
-    
-
-
-    
-
 }
 function updateMap(latitude,longitude){
 
@@ -108,6 +145,12 @@ function showOurInformation(cep,estado,pais){
         toggleTextwarning()
 
     },1500)
+
+}
+function changeInputInformation(rua,bairro,cidade){
+    inputRua.value = rua;
+    inputBairro.value = bairro;
+    inputCity.value = cidade
 
 }
 function toggleTextwarning(){
@@ -149,28 +192,44 @@ function removeWarning(){
     
     }
 }
-function copyInputValue(el) {
-    
-      
-    
-  }
 function erroInRequisition(){
     console.log('erro')
 }
-    const inputS = document.querySelectorAll('.inputSaida');
+inputsInformation.forEach(el =>{
 
-    inputS.forEach(el =>{
-        el.addEventListener('click', (e)=> {
-            e.target.parentElement.classList.add("active")
-            setTimeout(()=>{ e.target.parentElement.classList.remove("active")},1500)
-            navigator.clipboard.writeText(e.target.value)
-            .then(() => {
-              console.log('Texto copiado para a área de transferência');
+    el.addEventListener('click', (e)=>{copyInformation(e)})
+})
+function copyInformation(e) {
+
+    e.target.parentElement.classList.add("active")
+
+    setTimeout(()=>{ 
+        e.target.parentElement.classList.remove("active")},1500)
+
+        navigator.clipboard.writeText(e.target.value)
+
+        .then(() => {
+
+            console.log('Texto copiado para a área de transferência');
             })
-            .catch((error) => {
-              console.error('Erro ao copiar texto para a área de transferência:', error);
-            });
-        });
-    })
+        .catch((error) => {
 
-    
+        console.error('Erro ao copiar texto para a área de transferência:', error);
+        }
+    );
+}
+function getLocation(){
+    navigator.geolocation.getCurrentPosition(definingPos);
+    function  definingPos(pos){
+
+        latitude = pos.coords.latitude;
+        longitude = pos.coords.longitude;
+
+        requisicao = "userLocation"
+        makeRequisition(requisicao)
+    }
+} 
+
+
+
+
